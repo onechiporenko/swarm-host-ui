@@ -7,6 +7,9 @@ import DS from 'ember-data';
 export default Route.extend({
   ajax: service(),
   tableColumns: service(),
+  router: service(),
+
+  moveTo: '',
 
   beforeModel() {
     const appInstance = getOwner(this);
@@ -17,7 +20,11 @@ export default Route.extend({
     const namespace = get(applicationAdapter, 'namespace');
     const url = `${host}/${namespace}/meta`;
     return get(this, 'ajax').request(url).then(lairDevInfo => {
-      Object.keys(lairDevInfo).forEach(modelName => {
+      let moveTo = '';
+      Object.keys(lairDevInfo).forEach((modelName, index) => {
+        if (!index) {
+          set(this, 'moveTo', modelName);
+        }
         const attrs = {};
         get(tableColumns, 'factoryNames').pushObject(modelName);
         set(tableColumns, modelName, [{propertyName: 'id'}]);
@@ -28,7 +35,6 @@ export default Route.extend({
             get(tableColumns, modelName).pushObject({propertyName: attrName});
           }
         });
-
         appInstance.register(`model:${modelName}`, DS.Model.extend(attrs));
       });
     });
