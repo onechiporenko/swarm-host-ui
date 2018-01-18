@@ -1,0 +1,15 @@
+{{#bs-nav type="tabs" as |nav|}}
+  {{#each tableColumns.factoryNames as |factoryName|}}
+    {{#nav.item}}
+      {{#nav.link-to "index" (query-params factory=factoryName)}}{{factoryName}}{{/nav.link-to}}
+    {{/nav.item}}
+  {{/each}}
+{{/bs-nav}}
+
+{{#if isLoading}}
+  <p>...Loading...</p>
+{{else}}
+  <h2>{{factory}}</h2>
+  {{models-table data=model columns=columns showColumnsDropdown=false showGlobalFilter=false}}
+{{/if}}
+{{outlet}}
