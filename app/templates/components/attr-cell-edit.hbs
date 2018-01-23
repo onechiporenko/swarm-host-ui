@@ -1,0 +1,20 @@
+{{#if useCheckbox}}
+  {{input type="checkbox" checked=(get record column.propertyName)}}
+{{else}}
+  {{#if useDropdown}}
+    {{#power-select
+      selected=(get record column.propertyName)
+      options=attrMeta.allowedValues
+      onchange=(action (mut (get record column.propertyName)))
+    as |option|}}
+      {{option}}
+    {{/power-select}}
+    {{yield}}
+  {{else}}
+    {{#if useTextarea}}
+      {{textarea class=themeInstance.input value=(get record column.propertyName) rows=8}}
+    {{else}}
+      {{input type="text" class=themeInstance.input value=(get record column.propertyName)}}
+    {{/if}}
+  {{/if}}
+{{/if}}

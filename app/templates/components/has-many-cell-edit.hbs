@@ -1,0 +1,9 @@
+{{#power-select-multiple
+  selected=(get record column.propertyName)
+  options=options
+  searchField="id"
+  onchange=(action (mut (get record column.propertyName)))
+as |option|
+}}
+  {{trunc (stringify-attrs option) 80}}
+{{/power-select-multiple}}

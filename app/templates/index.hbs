@@ -10,6 +10,14 @@
   <p>...Loading...</p>
 {{else}}
   <h2>{{factory}}</h2>
-  {{models-table data=model columns=columns showColumnsDropdown=false showGlobalFilter=false}}
+  {{models-table
+    data=model
+    columns=columns
+    showColumnsDropdown=false
+    showGlobalFilter=false
+    columnComponents=(hash
+      editRow=(component "models-table/cell-edit-toggle" saveRowAction=(action "onSaveRow") cancelRowAction=(action "onCancelRow"))
+    )
+  }}
 {{/if}}
 {{outlet}}

@@ -8,6 +8,23 @@ export default Controller.extend({
   factory: null,
   columns: computed('factory', function () {
     const tableColumns = get(this, 'tableColumns');
-    return get(tableColumns, get(this, 'factory'))
+    const columns = get(tableColumns, get(this, 'factory')).slice();
+    columns.push({
+      title: 'Edit',
+      component: 'editRow',
+      editable: false
+    });
+    return columns;
   }),
+
+  actions: {
+    onSaveRow({record}) {
+      return record.save();
+    },
+
+    onCancelRow({record}) {
+      record.rollback();
+      return true;
+    }
+  }
 });
