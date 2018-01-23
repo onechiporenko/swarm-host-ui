@@ -57,6 +57,9 @@ export default DS.JSONAPISerializer.extend({
   },
 
   normalizeSingleResponse(store, primaryModelClass, payload, id, requestType) {
+    if (requestType === 'deleteRecord') {
+      return {meta: {}};
+    }
     const rel = this.getRelationships(primaryModelClass);
     const relsMap = {};
     rel.map(r => relsMap[r.key] = r.type);

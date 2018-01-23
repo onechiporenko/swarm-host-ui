@@ -9,15 +9,20 @@
 {{#if isLoading}}
   <p>...Loading...</p>
 {{else}}
-  <h2>{{factory}}</h2>
-  {{models-table
-    data=model
-    columns=columns
-    showColumnsDropdown=false
-    showGlobalFilter=false
-    columnComponents=(hash
-      editRow=(component "models-table/cell-edit-toggle" saveRowAction=(action "onSaveRow") cancelRowAction=(action "onCancelRow"))
-    )
-  }}
+  <h2>{{factory}}
+    <button class="btn btn-primary pull-right" {{action "onAddRow"}}>Add</button>
+  </h2>
+  <div class="wrapper">
+    {{models-table
+      data=model
+      columns=columns
+      showColumnsDropdown=false
+      showGlobalFilter=false
+      columnComponents=(hash
+        editRow=(component "models-table/cell-edit-toggle" saveRowAction=(action "onSaveRow") cancelRowAction=(action "onCancelRow"))
+        deleteRow=(component "delete-row" deleteRowAction=(action "onDeleteRow"))
+      )
+    }}
+  </div>
 {{/if}}
 {{outlet}}
