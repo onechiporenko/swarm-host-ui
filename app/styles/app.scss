@@ -1,2 +1,7 @@
 @import 'ember-bootstrap/bootstrap';
 @import 'ember-power-select';
+
+.factory-nav {
+  max-height: 90vh;
+  overflow: auto;
+}

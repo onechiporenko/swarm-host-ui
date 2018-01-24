@@ -8,6 +8,7 @@ import $ from 'jquery';
 export default Controller.extend({
   tableColumns: service(),
   queryParams: ['factory'],
+  sidebarVisible: true,
   factory: null,
   columns: computed('factory', function () {
     const tableColumns = get(this, 'tableColumns');
@@ -49,6 +50,9 @@ export default Controller.extend({
         return get(record, 'isNew') ? record.rollbackAttributes() : record.destroyRecord();
       }
       return resolve();
+    },
+    toggleSidebar() {
+      this.toggleProperty('sidebarVisible');
     }
   }
 });
